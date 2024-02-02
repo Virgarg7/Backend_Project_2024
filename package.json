@@ -1,0 +1,11 @@
+{
+  "name": "backend-2024",
+  "version": "1.0.0",
+  "description": "A Full Backend Project to Understand All Core Concepts of Backend ",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Vir Garg",
+  "license": "ISC"
+}
