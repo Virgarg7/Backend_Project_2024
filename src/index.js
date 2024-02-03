@@ -1,24 +1,29 @@
 // require('dotenv').config({path: './env'})
 import dotenv from "dotenv"
 import connectDB from "./db/index.js";
-import {app} from './app.js'
+import { app } from './app.js'
 
 dotenv.config({
     path: './.env'
 })
 
-// 1st Method 
+// 1st Method (Since connectDB is an async function so it will 
+// return a promise and thereofore we can use .then and .catch )
 connectDB()
-.then(() => {
-    app.listen(process.env.PORT || 8000, () => {
-        console.log(`⚙️ Server is running at port : ${process.env.PORT}`);
+    .then(() => {
+        app.on("errror", (error) => {
+            console.log("ERRR: ", error);
+            throw error
+        })
+        app.listen(process.env.PORT || 8000, () => {
+            console.log(`⚙️ Server is running at port : ${process.env.PORT}`);
+        })
     })
-})
-.catch((err) => {
-    console.log("MONGO db connection failed !!! ", err);
-})
+    .catch((err) => {
+        console.log("MONGO db connection failed !!! ", err);
+    })
 
-// 2nd Method - Using IFFE 
+// 2nd Method - Using IFFE
 // ( async () => {
 //     try {
 //         await mongoose.connect(`${process.env.MONGODB_URI}/${DB_NAME}`)
@@ -37,7 +42,7 @@ connectDB()
 //     }
 // })()
 
-// 3rd Mthod Simple function
+// 3rd Method Simple function
 // const connectToDatabase = async () => {
 //     try {
 //         await mongoose.connect(`${process.env.MONGODB_URI}/${DB_NAME}`);
